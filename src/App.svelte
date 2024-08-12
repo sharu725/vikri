@@ -231,9 +231,6 @@
     .vikri__tab__header {
       font-weight: bold;
     }
-    .ml__4 {
-      margin-left: 1em;
-    }
     .a__r {
       margin-left: auto;
     }
