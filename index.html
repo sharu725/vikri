@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vikri Cart</title>
+    <style>
+      .vikri-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .vikri-demo-header {
+        text-align: center;
+      }
+      .vikri-demo-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2em;
+        margin-bottom: 2em;
+        .item {
+          display: grid;
+          place-items: center;
+        }
+
+        img {
+          height: 100px;
+          width: 100px;
+          object-fit: contain;
+          object-position: center;
+          margin-bottom: 0.25em;
+        }
+      }
+      .btns {
+        display: flex;
+        place-content: center;
+
+        button {
+          margin-right: 1em;
+        }
+      }
+      #cart-view {
+        background-color: #ddd;
+        padding: 2em;
+      }
+    </style>
+    <script type="module" crossorigin src="/vikri.js"></script>
+    <link rel="stylesheet" crossorigin href="/vikri.css">
+  </head>
+  <body>
+    <div class="vikri-container">
+      <h1 class="vikri-demo-header">Vikri Demo</h1>
+      <div class="vikri-demo-grid">
+        <div class="item">
+          <img src="/apple.jpg" alt="" />
+          <button
+            data-name="Apple"
+            data-id="apple"
+            data-price="10"
+            data-image="./apple.jpg"
+            class="vikri-item"
+          >
+            Add Apple - 10
+          </button>
+        </div>
+
+        <div class="item">
+          <img src="/orange.jpg" alt="" />
+          <button
+            data-name="Orange"
+            data-id="orange"
+            data-price="20"
+            data-image="./orange.jpg"
+            class="vikri-item"
+          >
+            Add Oranges - 20
+          </button>
+        </div>
+        <div class="item">
+          <img src="/grapes.jpg" alt="" />
+          <button
+            data-name="Grape"
+            data-id="grape"
+            data-price="30"
+            data-image="./grapes.jpg"
+            class="vikri-item"
+          >
+            Add Grapes - 30
+          </button>
+        </div>
+      </div>
+      <div class="btns">
+        <button class="vikri-show-cart">
+          Show cart (<span id="cart-count"></span>)
+        </button>
+        <button class="vikri-checkout">Checkout</button>
+      </div>
+      <pre id="cart-view">click on checkout to see cart items</pre>
+    </div>
+    <script>
+      const buyButton = document.querySelector(".vikri-checkout");
+      setTimeout(() => {
+        document.querySelector("#cart-count").innerHTML =
+          buyButton.dataset.totalItems;
+      }, 500);
+
+      document.addEventListener("click", () => {
+        document.querySelector("#cart-count").innerHTML =
+          buyButton.dataset.totalItems;
+      });
+
+      buyButton.addEventListener("click", (e) => {
+        try {
+          const cart = JSON.parse(e.target.dataset.cart);
+
+          document.querySelector("#cart-view").innerHTML = JSON.stringify(
+            cart,
+            null,
+            4
+          );
+        } catch {
+          console.error(error);
+        }
+      });
+    </script>
+  </body>
+</html>
